@@ -1,4 +1,4 @@
-@extends('layouts.default');
+@extends('layouts.default')
 
 @section('title', 'Home')
 
@@ -14,7 +14,7 @@
 @endif
 
 <div class="row">
-@foreach($tableMovie as $movies)
+@foreach($movies as $movies)
 <div class="col-4 text-center">
 <div class="poster_section">
 @if($movies->poster)
@@ -30,6 +30,6 @@
 @endforeach
 </div>
 <div class="text-center mt-3">
-{{ $tableMovie->render() }}
+
 </div>
 @stop

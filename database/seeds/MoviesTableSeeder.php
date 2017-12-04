@@ -14,8 +14,11 @@ class MoviesTableSeeder extends Seeder
     {
        $faker = Faker::create();
 
-       foreach(range(1, 10) as $index) {
+       $dataCategories = DB::table('categories')->pluck('id')->toArray();
+
+       foreach(range(1, 80) as $index) {
           DB::table('movies')->insert([
+             'categories_id' => $faker->randomElement($dataCategories),
              'title' => $faker->name,
              'year' => rand(2000, 2020),
              'description' => $faker->text

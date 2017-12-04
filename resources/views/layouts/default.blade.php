@@ -3,10 +3,12 @@
 <head>
    <meta charset="UTF-8">
 <link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/style.css">
    <title>@yield('title')</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-info">
+<div class="container">
   <a class="navbar-brand" href="#">
 @if(Auth::check())
 {{ Auth::user()->name}}
@@ -34,14 +36,15 @@ Navbar Logo
 @endif
       </li>
     </ul>
-    <form class="form-inline my-2 my-lg-0">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-warning my-2 my-sm-0" type="submit">Search</button>
+    <form class="form-inline my-2 my-lg-0" action="{{ route('movies.search') }}" method="GET">
+      <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
     </form>
   </div>
+</div>
 </nav>
 
-<div class="px-4 my-5 row">
+<div class="px-4 row homepage">
 
 <div class="col-9">
 
@@ -57,6 +60,7 @@ Navbar Logo
 
 </div>
 
+<script src="/js/popper.min.js"></script>
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 </body>
