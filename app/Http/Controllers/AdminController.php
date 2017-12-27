@@ -9,6 +9,7 @@ use Intervention\Image\ImageManager;
 use App\User;
 use App\Movies;
 use App\MoviesCategories;
+use App\Http\Controller\DB;
 
 class AdminController extends Controller
 {
@@ -50,6 +51,13 @@ class AdminController extends Controller
       return view('admin.movie-list', compact('movies'));
    }
 
+   public function categoriesShow()
+   {
+      $categories = $this->moviesCategories->orderBy('id', 'ASC')->paginate(15);
+
+      return view('admin.categories', compact('categories'));
+   }
+
    public function destroyMovies($id)
    {
       $movies = $this->movies->find($id);
@@ -68,7 +76,7 @@ class AdminController extends Controller
 
       return view('admin.create', compact('movieCategories'));
    }
-   
+
    public function generatePhoto($photo, $data) 
    {
       $filename = date('YmdHis').'-'.snake_case($data['title']).".".$this->filesystem->extension($photo->getClientOriginalName());
@@ -83,10 +91,8 @@ class AdminController extends Controller
    {
       $movies = $request->except("poster");
 
-      //dd($movies);
-
       if($request->hasFile('poster')) {
-      $movies['poster'] = $this->generatePhoto($request->file('poster'), $request->except('poster'));
+         $movies['poster'] = $this->generatePhoto($request->file('poster'), $request->except('poster'));
       }
       $this->movies->create($movies);
 
@@ -104,22 +110,31 @@ class AdminController extends Controller
       return view('admin.update', compact('movies', 'moviesCategories'));
    }
 
-public function update($id, MoviesRequest $request)
-{
-   $moviesForm = $request->except('poster');
+   public function update($id, MoviesRequest $request)
+   {
+      $moviesForm = $request->except('poster');
 
-   if($request->hasFile('poster')) {
-   $moviesForm['poster'] = $this->generatePhoto($request->file('poster'), $moviesForm);
+      if($request->hasFile('poster')) {
+         $moviesForm['poster'] = $this->generatePhoto($request->file('poster'), $moviesForm);
+      }
+
+      $movies = $this->movies->find($id);
+
+      if($movies) {
+         $movies->update($moviesForm);
+      }
+
+      session()->flash('message', 'Movie Telah Di Update');
+
+      return redirect('/admin/movies');
    }
 
-   $movies = $this->movies->find($id);
+   public function pinjam()
+   {
+      $movies =  DB::select('select * from movie_user where movies_id = ?' , [3]);
 
-   if($movies) {
-   $movies->update($moviesForm);
+      dd($movies);
+
+      return view('movies.list-movies');
    }
-
-   session()->flash('message', 'Movie Telah Di Update');
-
-   return redirect('/admin/movies');
-}
 }

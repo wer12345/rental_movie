@@ -23,6 +23,4 @@ class UsersController extends Controller
   {
     return view('register');
   }
-
-
 }

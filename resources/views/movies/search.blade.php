@@ -14,22 +14,22 @@
 @endif
 
 <div class="row">
-@foreach($movies as $movies)
+@foreach($movies as $movie)
 <div class="col-4 text-center">
 <div class="poster_section">
-@if($movies->poster)
-<img src="{{ $movies->poster }}" alt="Poster" class="poster">
+@if($movie->poster)
+<img src="{{ $movie->poster }}" alt="Poster" class="poster">
 @else
 <img src="/photos/no-avatar.png" alt="Poster" class="poster">
 @endif
 </div>
 <div class="title_section">
-<a class="title" href="{{ route('movies.post', $movies->id) }}"><h4>{{ $movies->title }}</h4></a>
+<a class="title" href="{{ route('movies.post', $movie->id) }}"><h4>{{ $movie->title }}</h4></a>
 </div>
 </div>
 @endforeach
 </div>
 <div class="text-center mt-3">
-
+{{ $movies->render() }}
 </div>
 @stop

@@ -21,6 +21,8 @@ Route::get('/login', ['uses' => 'AuthController@login', 'as' => 'auth.login']);
 Route::post('/login', ['uses' => 'AuthController@authenticate', 'as' => 'auth.auth']);
 Route::get('/movies/title/{id}', ['uses' => 'MoviesController@post', 'as' => 'movies.post']);
 Route::get('/movies/search', ['as' => 'movies.search', 'uses' => 'MoviesController@searchMovies',]);
+Route::get('/movies/test', ['uses' => 'AdminController@pinjam', 'as' => 'admin.pinjam']);
+Route::post('/movies/pinjam', ['uses' => 'MoviesController@pinjamMovies', 'as' => 'movies.pinjam']);
 
 Route::group(['middleware' => 'verify.auth'], function() {
 
@@ -33,7 +35,7 @@ Route::group(['middleware' => 'verify.auth'], function() {
    Route::post('/admin/movies/add', ['uses' => 'AdminController@store', 'as' => 'admin.store']);
    Route::get('/admin/movies/edit/{id}', ['uses' => 'AdminController@edit', 'as' => 'admin.edit']);
    Route::put('/admin/movies/update/{id}', ['uses' => 'AdminController@update', 'as' => 'admin.update']);
-   
+   Route::get('/admin/categories', ['uses' => 'AdminController@categoriesShow', 'as' => 'admin.categories']);
    
 
 });

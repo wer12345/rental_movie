@@ -12,4 +12,6 @@ class Movies extends Model
    {
    return $this->belongsTo(\App\MoviesCategories::class, 'categories_id');
    }
+
+
 }
