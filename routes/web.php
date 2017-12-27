@@ -20,6 +20,7 @@ Route::get('/movies/list', ['uses' => 'MoviesController@listMovies', 'as' => 'mo
 Route::get('/login', ['uses' => 'AuthController@login', 'as' => 'auth.login']);
 Route::post('/login', ['uses' => 'AuthController@authenticate', 'as' => 'auth.auth']);
 Route::get('/movies/title/{id}', ['uses' => 'MoviesController@post', 'as' => 'movies.post']);
+//Route::get('/movies/title/{id}', ['uses' => 'MoviesController@default', 'as' => 'movies.default']);
 Route::get('/movies/search', ['as' => 'movies.search', 'uses' => 'MoviesController@searchMovies',]);
 Route::get('/movies/test', ['uses' => 'AdminController@pinjam', 'as' => 'admin.pinjam']);
 Route::post('/movies/pinjam', ['uses' => 'MoviesController@pinjamMovies', 'as' => 'movies.pinjam']);

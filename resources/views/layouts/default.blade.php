@@ -25,16 +25,23 @@
                   <li class="nav-item active">
                      <a class="nav-link" href="{{ route('movies.index') }}">Home <span class="sr-only">(current)</span></a>
                   </li>
+                  @if(Auth::check()) 
+                  @if(Auth::user()->role == "admin")
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ route('admin.index') }}">Admin Panel</a>
+                  </li>
+                  @endif                  
                   <li class="nav-item">
                      <a class="nav-link" href="{{ route('movies.list') }}">List Movies</a>
                   </li>
                   <li class="nav-item">
-                     @if(Auth::check()) 
                      <a class="nav-link" href="{{ route('auth.logout') }}">Logout</a>
-                     @else
-                     <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
-                     @endif
                   </li>
+                  @else
+                  <li class="nav-item">
+                     <a class="nav-link" href="{{ route('auth.login') }}">Login</a>
+                  </li>
+                  @endif
                </ul>
                <form class="form-inline my-2 my-lg-0" action="{{ route('movies.search') }}" method="GET">
                   <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Search" aria-label="Search">

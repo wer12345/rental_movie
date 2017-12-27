@@ -9,7 +9,7 @@ use Intervention\Image\ImageManager;
 use App\User;
 use App\Movies;
 use App\MoviesCategories;
-use App\Http\Controller\DB;
+use DB;
 
 class AdminController extends Controller
 {
@@ -39,7 +39,7 @@ class AdminController extends Controller
 
    public function customerShow()
    {
-      $customers = $this->user->orderBy('id', 'ASC')->paginate(15);
+      $customers = DB::table('users')->where('role', '=', 'customer')->orderBy('id', 'ASC')->paginate(15);
 
       return view('admin.customer-list', compact('customers'));
    }
@@ -127,14 +127,5 @@ class AdminController extends Controller
       session()->flash('message', 'Movie Telah Di Update');
 
       return redirect('/admin/movies');
-   }
-
-   public function pinjam()
-   {
-      $movies =  DB::select('select * from movie_user where movies_id = ?' , [3]);
-
-      dd($movies);
-
-      return view('movies.list-movies');
    }
 }

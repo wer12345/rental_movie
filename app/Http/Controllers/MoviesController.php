@@ -40,12 +40,12 @@ class MoviesController extends Controller
       return view('movies.index', compact('tableMovie'));
    }
 
-   //public function listMovies()
-   //{
-      //$tableMovies = Movies::all() ;
+   public function listMovies()
+   {
+      $tableMovies = Movies::all() ;
 
-      //return view('movies.list-movies', compact('tableMovies'));
-   //}
+      return view('movies.list-movies', compact('tableMovies'));
+   }
 
    public function post($id)
    {
