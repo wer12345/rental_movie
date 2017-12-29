@@ -31,9 +31,9 @@
                   <td>{{ $movie->moviesCategories->name }}</td>
                   <td>{{ $movie->year }}</td>
                   <td>
-                     <a data-target="#test{{ $movie->id }}" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                     <a data-target="#update{{ $movie->id }}" data-toggle="modal" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
 
-                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="test{{ $movie->id }}" class="modal fade">
+                     <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" id="update{{ $movie->id }}" class="modal fade">
                         <div class="modal-dialog">
                            <div class="modal-content">
                               <div class="modal-header">

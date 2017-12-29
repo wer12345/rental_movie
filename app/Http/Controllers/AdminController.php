@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\MoviesRequest;
+use App\Http\Requests\UserRequest;
 use Illuminate\Filesystem\Filesystem;
 use Intervention\Image\ImageManager;
 use App\User;
@@ -108,22 +109,35 @@ class AdminController extends Controller
       return redirect('/admin/movies');
    }
 
-   public function update($id, MoviesRequest $request)
-   {
-      $moviesForm = $request->except('poster');
 
-      if($request->hasFile('poster')) {
-         $moviesForm['poster'] = $this->generatePhoto($request->file('poster'), $moviesForm);
+   public function update($id, Request $request) {
+      $movie = $this->movies->find($id);
+
+      $users = $this->user->find($id);
+
+      $data = $request->all();
+
+      if($users) {
+         $users->update([
+            'name' => $data['name'],
+            'email' => $data['email']
+         ]);
+
+         session()->flash('message', 'User Telah Di Update');
+
+      }elseif($movie) {
+         $movie->update([
+            'title' => $data['title'],
+            'categories_id' => $data['categories_id'],
+            'year' => $data['year'],
+            'poster' => $data['poster'],
+            'description' => $data['description']
+         ]);
+
+         session()->flash('message', 'Movie Telah Di Update');
       }
-
-      $movies = $this->movies->find($id);
-
-      if($movies) {
-         $movies->update($moviesForm);
-      }
-
-      session()->flash('message', 'Movie Telah Di Update');
-
-      return redirect('/admin/movies');
+      
+      
+      return redirect()->back();
    }
 }

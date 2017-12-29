@@ -35,7 +35,9 @@ Route::group(['middleware' => 'verify.auth'], function() {
    Route::get('/admin/movies/add', ['uses' => 'AdminController@add', 'as' => 'admin.add']);
    Route::post('/admin/movies/add', ['uses' => 'AdminController@store', 'as' => 'admin.store']);
    Route::get('/admin/movies/edit/{id}', ['uses' => 'AdminController@edit', 'as' => 'admin.edit']);
-   Route::put('/admin/movies/update/{id}', ['uses' => 'AdminController@update', 'as' => 'admin.update']);
+   Route::put('/admin/movies/update/{id}', ['uses' => 'AdminController@updateMovie', 'as' => 'admin.update-movie']);
+   Route::put('/admin/user/update/{id}', ['uses' => 'AdminController@updateUser', 'as' => 'admin.update-user']);
+   Route::put('/admin/update/{id}', ['uses' => 'AdminController@update', 'as' => 'admin.update']);
    Route::get('/admin/categories', ['uses' => 'AdminController@categoriesShow', 'as' => 'admin.categories']);
    
 

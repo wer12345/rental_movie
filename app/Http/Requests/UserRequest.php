@@ -31,6 +31,12 @@ class UserRequest extends FormRequest
             'password' => 'min:8'
          ];
          break;
+      case "PUT":
+         return [
+            'name' => 'required',
+            'email' => 'required'
+         ];
+         break;
       };
    }
 }
