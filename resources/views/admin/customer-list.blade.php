@@ -2,41 +2,57 @@
 
 @section('admin-content')
 
-<div class="customer_section">
+<div class="row mt">
+   <div class="col-md-12">
+      <div class="content-panel">
+         <table class="table table-striped table-advance table-hover">
+            <h4><i class="fa fa-angle-right"> Customer Lists</i></h4>
+            <hr>
+            <thead>
+               <tr>
+                  <th>No.</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Status</th>
+                  <th></th>
+               </tr>
+            </thead>
+            <tbody>
 
-   <h3 class="customer-title">Customer Lists</h3>
+               @php ($no = 1)
 
-   <table class="table table-hover">
-      <thead class="thead-dark">
-         <tr>
-            <th scope="col">No</th>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Action</th>
-         </tr>
-      </thead>
-      <tbody>
+               @foreach($customers as $customer)
+               <tr>
+                  <td>{{ $no++ }}</td>
+                  <td>{{ $customer->name }}</td>
+                  <td>{{ $customer->email }}</td>
 
-         @php ($no = 1)
+                  @if($customer->role == "admin")
+                  <td><span class="label label-primary">{{ strtoupper($customer->role) }}</span></td>
+                  <td></td>
 
-         @foreach($customers as $customer) 
-         <tr>
-            <th scope="row">{{ $no++ }}</th>
-            <td>{{ $customer->name }}</td>
-            <td>{{ $customer->email }}</td>
-            <td>
-               <a class="btn btn-primary" href="#">Edit</a>
-               <form action="#" method="POST" class="d-inline">
-                  <input type="hidden" name="_method" value="delete" />
-                  {{ csrf_field() }}
-                  <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus {{ $customer->name }} ?')" href="#">Hapus</button>
-               </form>
-            </td>
-         </tr>
-         @endforeach
-      </tbody>
-   </table>
-   {{ $customers->render() }}
+                  @else
+                  <td><span class="label label-default">{{ strtoupper($customer->role) }}</span></td>
+                  <td>
+                     <a href="#" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
+                     <form action="{{ route('admin-delete', $customer->id) }}" method="POST" class="d-inline">
+                        <input type="hidden" name="_method" value="delete">
+                        {{ csrf_field() }}
+                        <button type="submit" onclick="return confirm('You want to Delete This User ?')"class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i></button>
+                     </form>
+                  </td>
+
+                  @endif
+
+               </tr>
+               @endforeach
+            </tbody>
+         </table>
+         <div class="pull-right">
+            {{ $customers->render() }}
+         </div>
+      </div>
+   </div>
 </div>
 
 @stop

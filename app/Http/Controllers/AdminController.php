@@ -34,19 +34,25 @@ class AdminController extends Controller
 
    public function index()
    {
-      return view('admin.admin-index');
+      $user = $this->user;
+
+      $movies = $this->movies;
+
+      $categories = $this->moviesCategories;
+
+      return view('admin.admin-index', compact('user', 'movies', 'categories'));
    }
 
    public function customerShow()
    {
-      $customers = DB::table('users')->where('role', '=', 'customer')->orderBy('id', 'ASC')->paginate(15);
+      $customers = $this->user->orderBy('id', 'ASC')->paginate(15);
 
       return view('admin.customer-list', compact('customers'));
    }
 
    public function movieShow()
    {
-      $movies = $this->movies->with('moviesCategories')->orderBy('id', 'ASC')->paginate(15);
+      $movies = $this->movies->with('moviesCategories')->orderBy('id', 'DESC')->paginate(15);
 
       return view('admin.movie-list', compact('movies'));
    }
@@ -62,19 +68,20 @@ class AdminController extends Controller
    {
       $movies = $this->movies->find($id);
 
-      if($movies) {
+      $user = $this->user->find($id);
+
+      if($user) {
+         $user->delete();
+         
+         session()->flash('message', 'User Telah di Hapus');
+
+      } elseif($movies) {
          $movies->delete();
+         
+         session()->flash('message', 'Movie Telah di Hapus');
       }
 
-      session()->flash('message', 'Movie Telah di Hapus');
       return redirect()->back();
-   }
-
-   public function add()
-   {
-      $movieCategories = $this->moviesCategories->all();
-
-      return view('admin.create', compact('movieCategories'));
    }
 
    public function generatePhoto($photo, $data) 
@@ -99,15 +106,6 @@ class AdminController extends Controller
       session()->flash('message', 'Movie Telah Di Tambahkan');
 
       return redirect('/admin/movies');
-   }
-
-   public function edit($id)
-   {
-      $movies = $this->movies->find($id);
-
-      $moviesCategories = $this->moviesCategories->all();
-
-      return view('admin.update', compact('movies', 'moviesCategories'));
    }
 
    public function update($id, MoviesRequest $request)

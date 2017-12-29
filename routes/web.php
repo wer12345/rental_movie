@@ -30,7 +30,7 @@ Route::group(['middleware' => 'verify.auth'], function() {
    Route::get('/admin/customer', ['uses' => 'AdminController@customerShow', 'as' => 'admin.customer']);
    Route::get('/admin', ['uses' => 'AdminController@index', 'as' => 'admin.index']);
    Route::get('/admin/movies', ['uses' => 'AdminController@movieShow', 'as' => 'admin.movies']);
-   Route::delete('/admin/destroy-movies/{id}', ['uses' => 'AdminController@destroyMovies', 'as' => 'admin-movdel']);
+   Route::delete('/admin/destroy/{id}', ['uses' => 'AdminController@destroyMovies', 'as' => 'admin-delete']);
    Route::get('/logout', ['uses' => 'AuthController@logout', 'as' => 'auth.logout']);
    Route::get('/admin/movies/add', ['uses' => 'AdminController@add', 'as' => 'admin.add']);
    Route::post('/admin/movies/add', ['uses' => 'AdminController@store', 'as' => 'admin.store']);

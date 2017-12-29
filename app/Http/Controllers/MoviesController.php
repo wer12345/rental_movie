@@ -44,6 +44,10 @@ class MoviesController extends Controller
    {
       $tableMovies = Movies::all() ;
 
+      $user = $this->user->count();
+
+      //dd($user);
+
       return view('movies.list-movies', compact('tableMovies'));
    }
 

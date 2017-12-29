@@ -2,32 +2,17 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-<link rel="stylesheet" href="/css/bootstrap.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <!--external css-->
+    <link href="/font-awesome/css/font-awesome.css" rel="stylesheet" />
+        
+    <!-- Custom styles for this template -->
+    <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/style-responsive.css" rel="stylesheet">
    <title>@yield('title')</title>
 </head>
 <body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
-<div class="container">
-  <a class="navbar-brand" href="#">Navbar</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ route('movies.index') }}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Register</a>
-      </li>
-      <li class="nav-item">
-      </li>
-    </ul>
-  </div>
-</div>
-</nav>
 
 <div class="row mt-5">
 <div class="col-4"></div>
@@ -55,8 +40,14 @@
 <div class="col-4"></div>
 </div>
 
-<script src="/js/popper.min.js"></script>
-<script src="/js/jquery.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+
+    <!--BACKSTRETCH-->
+    <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
+    <script type="text/javascript" src="/js/jquery.backstretch.min.js"></script>
+    <script>
+        $.backstretch("/img/login-bg.jpg", {speed: 500});
+    </script>
 </body>
 </html>
