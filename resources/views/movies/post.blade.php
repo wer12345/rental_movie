@@ -26,20 +26,32 @@
    </div>
 
    <div class="post-btn"i>
+      @if(Auth::check())        
+      
+      @if($movie_user == 1)
+      
+      <form action="{{ route('movies.kembalikan', $getPinjamData->id) }}" method="POST">
+         {{ csrf_field() }}
+         <input type="hidden" name="_method" value="delete">
+         <button type="submit" class="btn btn-success" role="button">Kembalikan</button>
+      </form>
+      
+      @else
+      
       <form action="{{ route('movies.pinjam') }}" method="POST">
          {{ csrf_field() }}
          <input type="hidden" name="user_id" id="user_id" value="{{ $user_id }}">
          <input type="hidden" name="movies_id" id="movies_id" value="{{ $moviesPost->id }}">
-         @if(Auth::check())        
-         @if($movie_user == 1)
-         <button class="btn btn-primary disabled" disabled role="button" aria-disabled="true">Pinjam</button>
-         @else
          <button class="btn btn-primary" type="submit">Pinjam</button>
-         @endif
-         @else
-         <a class="btn btn-primary" href="{{ route('auth.login') }}">Login</a>
-         @endif
       </form>
+      
+      @endif
+      
+      @else
+      
+      <a class="btn btn-primary" href="{{ route('auth.login') }}">Login</a>
+      
+      @endif
    </div>
 </div>
 

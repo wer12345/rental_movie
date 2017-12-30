@@ -73,12 +73,12 @@ class AdminController extends Controller
 
       if($user) {
          $user->delete();
-         
+
          session()->flash('message', 'User Telah di Hapus');
 
       } elseif($movies) {
          $movies->delete();
-         
+
          session()->flash('message', 'Movie Telah di Hapus');
       }
 
@@ -102,6 +102,7 @@ class AdminController extends Controller
       if($request->hasFile('poster')) {
          $movies['poster'] = $this->generatePhoto($request->file('poster'), $request->except('poster'));
       }
+
       $this->movies->create($movies);
 
       session()->flash('message', 'Movie Telah Di Tambahkan');
@@ -136,8 +137,8 @@ class AdminController extends Controller
 
          session()->flash('message', 'Movie Telah Di Update');
       }
-      
-      
+
+
       return redirect()->back();
    }
 }

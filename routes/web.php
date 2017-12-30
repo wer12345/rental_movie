@@ -23,7 +23,6 @@ Route::get('/movies/title/{id}', ['uses' => 'MoviesController@post', 'as' => 'mo
 //Route::get('/movies/title/{id}', ['uses' => 'MoviesController@default', 'as' => 'movies.default']);
 Route::get('/movies/search', ['as' => 'movies.search', 'uses' => 'MoviesController@searchMovies',]);
 Route::get('/movies/test', ['uses' => 'AdminController@pinjam', 'as' => 'admin.pinjam']);
-Route::post('/movies/pinjam', ['uses' => 'MoviesController@pinjamMovies', 'as' => 'movies.pinjam']);
 
 Route::group(['middleware' => 'verify.auth'], function() {
 
@@ -39,6 +38,8 @@ Route::group(['middleware' => 'verify.auth'], function() {
    Route::put('/admin/user/update/{id}', ['uses' => 'AdminController@updateUser', 'as' => 'admin.update-user']);
    Route::put('/admin/update/{id}', ['uses' => 'AdminController@update', 'as' => 'admin.update']);
    Route::get('/admin/categories', ['uses' => 'AdminController@categoriesShow', 'as' => 'admin.categories']);
-   
+   Route::delete('/movies/kembalikan/{id}', ['uses' => 'MoviesController@kembalikanMovies', 'as' => 'movies.kembalikan']);
+   Route::post('/movies/pinjam', ['uses' => 'MoviesController@pinjamMovies', 'as' => 'movies.pinjam']);
+
 
 });

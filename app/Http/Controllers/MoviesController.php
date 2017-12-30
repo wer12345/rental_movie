@@ -58,18 +58,11 @@ class MoviesController extends Controller
 
       $user_id = Auth::user()->id;
 
-      $movie_user = DB::table('movie_user')->where('movies_id', '=', $moviesPost->id, 'AND', 'user_id', '=', 'Auth::user()->id')->count();
+      $movie_user = $this->userMovies->where('movies_id', '=', $moviesPost->id, 'AND', 'user_id', '=', 'Auth::user()->id')->count();
 
-      return view('movies.post', compact('moviesPost', 'movie_user', 'user_id'));
-   }
+      $getPinjamData = $this->userMovies->where('movies_id', $moviesPost->id)->first();
 
-   public function generatePhoto($photo, $data) {
-      $filename = date('YmdHis').'-'.snake_case($data['name']).".".$this->filesystem->extension($photo->getClientOriginalName());
-      $path = public_path("/photos").$filename;
-
-      $this->imageManager->make($photo->getRealPath())->save($pasth);
-
-      return "/photos/".$filename;
+      return view('movies.post', compact('moviesPost', 'movie_user', 'user_id', 'getPinjamData'));
    }
 
    public function searchMovies(Request $request)
@@ -83,17 +76,24 @@ class MoviesController extends Controller
       return view('movies.search', compact('movies'));
    }
 
-   public function pinjamMovies(Request $request)
+   public function pinjamMovies(PinjamMoviesRequest $request)
    {
-      $userId = $request->input('user_id');
-      $moviesId = $request->input('movies_id');
+      $data = $request->all();
 
-      DB::table('movie_user')->insert([
-         'user_id' => $userId,
-         'movies_id' => $moviesId
-      ]);
+      $this->userMovies->create($data);
 
       session()->flash('message', 'Movies Telah Di Pinjam');
+
+      return redirect()->back();
+   }
+
+   public function kembalikanMovies($id) {
+      $movie_user = $this->userMovies->find($id);
+
+      if($movie_user)
+         $movie_user->delete();
+
+      session()->flash('message', 'Movie Telah di Kembalikan');
 
       return redirect()->back();
    }

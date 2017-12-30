@@ -7,6 +7,7 @@
    <!--logo end-->
    <div class="top-menu">
       <ul class="nav pull-right top-menu">
+         <li><a class="logout" href="{{ route('movies.index') }}">Home Page</a></li>
          <li><a class="logout" href="{{ route('auth.logout') }}">Logout</a></li>
       </ul>
    </div>

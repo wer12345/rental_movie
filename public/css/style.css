@@ -2246,7 +2246,7 @@ label {
 
 .btn-create {
    position: fixed;
-   right: 20px;
-   top: 85px;
+   left: 260px;
+   bottom: 30px;
    font-size: 52px;
 }
